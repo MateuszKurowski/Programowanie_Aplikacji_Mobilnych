@@ -1,26 +1,34 @@
-// import 'dart:convert';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-// class Detail {
-//   Detail(this.name, this.url);
+class PokemonDetail {
+  final String name;
+  final int height;
+  final int weight;
+  final String image;
 
-//   final String name;
-//   final String url;
-//   String? image;
+  PokemonDetail(
+      {required this.name,
+      required this.height,
+      required this.weight,
+      required this.image});
 
-//   void findImage() {
-//     image = 'https://api.pexels.com/v1/search?query=$name';
-//   }
+  factory PokemonDetail.fromJson(Map<String, dynamic> json) {
+    return PokemonDetail(
+      name: json['name'],
+      height: json['height'],
+      weight: json['weight'],
+      image: json['sprites']['front_default'],
+    );
+  }
 
-//   factory Pokemon.fromJson(Map<String, dynamic> json) {
-//     return Pokemon(
-//       json['pokemon']['name'],
-//       json['pokemon']['url'],
-//     );
-//   }
+  static Future<PokemonDetail> fetchPokemonDetail(String url) async {
+    final response = await http.get(Uri.parse(url));
 
-//   static List<Pokemon> fromJsonList(String jsonList) {
-//     Map<String, dynamic> data = json.decode(jsonList);
-//     List results = data['pokemon'];
-//     return results.map((pokemon) => Pokemon.fromJson(pokemon)).toList();
-//   }
-// }
+    if (response.statusCode == 200) {
+      return PokemonDetail.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load pokemon detail');
+    }
+  }
+}

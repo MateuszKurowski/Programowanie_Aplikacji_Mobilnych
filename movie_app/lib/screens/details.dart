@@ -1,51 +1,19 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-class PokemonDetail {
-  final String name;
-  final int height;
-  final int weight;
-  final String image;
+import '../models/detail.dart';
 
-  PokemonDetail(
-      {required this.name,
-      required this.height,
-      required this.weight,
-      required this.image});
-
-  factory PokemonDetail.fromJson(Map<String, dynamic> json) {
-    return PokemonDetail(
-      name: json['name'],
-      height: json['height'],
-      weight: json['weight'],
-      image: json['sprites']['front_default'],
-    );
-  }
-
-  static Future<PokemonDetail> fetchPokemonDetail(String url) async {
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      return PokemonDetail.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load pokemon detail');
-    }
-  }
-}
-
-class DetailScreen extends StatefulWidget {
+class DetailsScreen extends StatefulWidget {
   final String pokemonName;
   final String url;
 
-  DetailScreen({Key? key, required this.pokemonName, required this.url})
+  DetailsScreen({Key? key, required this.pokemonName, required this.url})
       : super(key: key);
 
   @override
-  _DetailScreeneState createState() => _DetailScreeneState();
+  _DetailsScreeneState createState() => _DetailsScreeneState();
 }
 
-class _DetailScreeneState extends State<DetailScreen>
+class _DetailsScreeneState extends State<DetailsScreen>
     with SingleTickerProviderStateMixin {
   late Future<PokemonDetail> futurePokemonDetail;
   late AnimationController _controller;

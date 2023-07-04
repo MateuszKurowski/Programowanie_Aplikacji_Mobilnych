@@ -17,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Wybierz typ pokemona'),
+          title: const Text('Choose Pokemon type'),
         ),
         body: GridView(
           padding: const EdgeInsets.all(18),

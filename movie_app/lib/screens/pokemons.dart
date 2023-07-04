@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/models/pokemon.dart';
 import 'package:http/http.dart' as http;
 
-import 'detail.dart';
+import 'details.dart';
 
 // ignore: must_be_immutable
 class PokemonsScreen extends StatefulWidget {
@@ -43,7 +43,7 @@ class PokemonsScreen extends StatefulWidget {
   }
 
   @override
-  _PokemonsScreen createState() => _PokemonsScreen(this.title);
+  _PokemonsScreen createState() => _PokemonsScreen(title);
 }
 
 class _PokemonsScreen extends State<PokemonsScreen> {
@@ -96,7 +96,7 @@ class _PokemonsScreen extends State<PokemonsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (ctx) => DetailScreen(
+                                  builder: (ctx) => DetailsScreen(
                                       pokemonName: snapshot.data![index].name,
                                       url: snapshot.data![index].url)));
                         });
@@ -104,7 +104,7 @@ class _PokemonsScreen extends State<PokemonsScreen> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           },
         ),
       ),
