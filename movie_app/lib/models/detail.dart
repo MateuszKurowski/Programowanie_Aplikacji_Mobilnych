@@ -14,8 +14,11 @@ class PokemonDetail {
       required this.image});
 
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
+    var jsonName = json['name'];
+
     return PokemonDetail(
-      name: json['name'],
+      name:
+          "${jsonName[0].toUpperCase()}${jsonName.substring(1).toLowerCase()}",
       height: json['height'],
       weight: json['weight'],
       image: json['sprites']['front_default'],

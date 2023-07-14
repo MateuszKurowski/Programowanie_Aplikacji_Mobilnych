@@ -12,8 +12,9 @@ class Pokemon {
   }
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
+    var jsonName = json['pokemon']['name'];
     return Pokemon(
-      json['pokemon']['name'],
+      "${jsonName[0].toUpperCase()}${jsonName.substring(1).toLowerCase()}",
       json['pokemon']['url'],
     );
   }
